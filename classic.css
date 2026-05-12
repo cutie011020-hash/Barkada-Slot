@@ -1,0 +1,20 @@
+body {
+  background: black;
+  color: white;
+  text-align: center;
+  font-family: Arial;
+}
+
+.slot {
+  font-size: 70px;
+  margin: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 18px;
+  background: gold;
+  border: none;
+  border-radius: 8px;
+}
