@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Slot Home</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      text-align: center;
+      font-family: Arial;
+    }
+
+    .game-btn {
+      display: block;
+      margin: 15px auto;
+      padding: 15px;
+      width: 250px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 10px;
+      border: none;
+      background: gold;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🎰 SLOT GAMES</h1>
+
+<button class="game-btn" onclick="goGame('classic-slot/classic.html')">
+  🎰 Classic Slot
+</button>
+
+<button class="game-btn" onclick="goGame('fruit-slot/fruit.html')">
+  🍒 Fruit Slot
+</button>
+
+<script>
+function goGame(path) {
+  window.location.href = "games/" + path;
+}
+</script>
+
+</body>
+</html>
