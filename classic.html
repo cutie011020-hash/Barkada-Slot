@@ -8,31 +8,24 @@
 
 <div class="container">
 
-  <h1 class="title">🎰 SLOT GAME</h1>
-
-  <div class="balance-box">
-    💰 Balance: <span id="balance">1000</span>
+  <div>
+    <h2 class="title">🎰 SLOT GAME</h2>
+    <div class="balance-box">💰 Balance: <span id="balance">1000</span></div>
   </div>
 
-  <!-- SLOT BOX -->
-  <div id="reels" class="reels">
-    <div class="grid">
-      <div>❓</div><div>❓</div><div>❓</div>
-      <div>❓</div><div>❓</div><div>❓</div>
-      <div>❓</div><div>❓</div><div>❓</div>
-    </div>
+  <div class="reels" id="reels">
+    <div>?</div><div>?</div><div>?</div>
+    <div>?</div><div>?</div><div>?</div>
+    <div>?</div><div>?</div><div>?</div>
   </div>
 
-  <!-- BET -->
   <div class="bet-box">
-    <button onclick="changeBet(-1)">➖</button>
+    <button onclick="betMinus()">-</button>
     <span>BET: <span id="bet">1</span></span>
-    <button onclick="changeBet(1)">➕</button>
+    <button onclick="betPlus()">+</button>
   </div>
 
-  <!-- SPIN -->
   <button class="spin-btn" onclick="spin()">SPIN</button>
-
   <button class="back-btn" onclick="back()">BACK</button>
 
 </div>
