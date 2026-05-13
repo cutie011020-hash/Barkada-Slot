@@ -1,6 +1,6 @@
 let balance = 1000;
 
-// 🎯 PAYLINES
+// 🎯 PAYLINES (horizontal + X)
 const paylines = [
   [0,1,2],
   [3,4,5],
@@ -15,7 +15,7 @@ const pay = {
   "🍋": 3,
   "🍎": 3,
   "🍉": 6,
-  "🍊": 6,   // ✅ NEW
+  "🍊": 6,
   "🔔": 12,
   "⭐": 30
 };
@@ -74,7 +74,7 @@ function display(g) {
   `;
 }
 
-// 🎰 SPIN SYSTEM (UPDATED CHANCES)
+// 🎰 SPIN SYSTEM (HIGH LOSE RATE)
 function spin() {
   if (balance < 1) return alert("No balance");
 
@@ -83,29 +83,29 @@ function spin() {
   let grid;
   let roll = Math.random();
 
-  if (roll < 0.01) {
-    grid = generateWin("⭐"); // 1%
+  if (roll < 0.005) {
+    grid = generateWin("⭐"); // 0.5%
 
-  } else if (roll < 0.03) {
-    grid = generateWin("🔔"); // 2%
+  } else if (roll < 0.015) {
+    grid = generateWin("🔔"); // 1%
 
-  } else if (roll < 0.04) {
-    grid = generateWin("🍉"); // 3%
+  } else if (roll < 0.025) {
+    grid = generateWin("🍉"); // 1%
 
-  } else if (roll < 0.04) {
-    grid = generateWin("🍊"); // ✅ 3% NEW
+  } else if (roll < 0.035) {
+    grid = generateWin("🍊"); // 1%
 
-  } else if (roll < 0.05) {
-    grid = generateWin("🍋"); // 4%
+  } else if (roll < 0.055) {
+    grid = generateWin("🍋"); // 2%
 
-  } else if (roll < 0.05) {
-    grid = generateWin("🍎"); // 4%
+  } else if (roll < 0.075) {
+    grid = generateWin("🍎"); // 2%
 
-  } else if (roll < 0.22) {
-    grid = generateWin("🍒"); // 5%
+  } else if (roll < 0.10) {
+    grid = generateWin("🍒"); // 2.5%
 
   } else {
-    grid = generateLose(); // 78%
+    grid = generateLose(); // 🔥 ~90% LOSE
   }
 
   display(grid);
