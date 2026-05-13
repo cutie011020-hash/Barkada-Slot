@@ -1,11 +1,13 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* BODY (MOBILE FIX) */
 body {
-  height: 100vh;
+  height: 100dvh; /* 🔥 FIX for mobile */
   background: radial-gradient(circle, #7a0000, black);
   font-family: Arial;
   color: gold;
@@ -15,33 +17,38 @@ body {
   align-items: center;
 
   overflow: hidden;
+  touch-action: manipulation;
 }
 
+/* MAIN CONTAINER */
 .container {
   width: 100%;
   max-width: 360px;
-  height: 640px;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center; /* 🔥 center vertically */
   align-items: center;
 
-  padding: 20px;
+  gap: 15px;
+  padding: 15px;
 }
 
+/* TITLE */
 .title {
   font-size: 22px;
 }
 
+/* BALANCE */
 .balance-box {
   font-size: 16px;
-  margin-bottom: 10px;
 }
 
+/* SLOT BOX (PARANG FORTUNE COINS SIZE) */
 .reels {
-  width: 260px;
-  height: 260px;
+  width: 280px;
+  height: 280px;
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -55,13 +62,15 @@ body {
   box-shadow: 0 0 25px gold;
 }
 
+/* SYMBOL */
 .reels div {
-  font-size: 38px;
+  font-size: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* BET */
 .bet-box {
   display: flex;
   align-items: center;
@@ -78,6 +87,7 @@ body {
   font-weight: bold;
 }
 
+/* SPIN BUTTON */
 .spin-btn {
   width: 100%;
   padding: 14px;
@@ -93,6 +103,7 @@ body {
   box-shadow: 0 0 15px red;
 }
 
+/* BACK BUTTON */
 .back-btn {
   width: 100%;
   padding: 10px;
