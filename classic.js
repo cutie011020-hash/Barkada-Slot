@@ -44,7 +44,7 @@ function playSound(id) {
   sound.play();
 }
 
-// 💸 SHOW NO MONEY MODAL
+// 💸 NO MONEY MODAL
 function showNoMoney() {
   document.getElementById("noMoneyModal").style.display = "flex";
 }
@@ -53,18 +53,16 @@ function closeModal() {
   document.getElementById("noMoneyModal").style.display = "none";
 }
 
-// 🔥 LOAD BALANCE (SAFE)
+// 🔥 LOAD BALANCE (SAFE - NO RESET)
 function loadBalance() {
-  userRef.once("value").then(snapshot => {
+  userRef.on("value", snapshot => {
     const data = snapshot.val();
 
     if (data && data.balance !== undefined) {
       balance = data.balance;
-    } else {
-      balance = 1000;
+      document.getElementById("balance").innerText = balance;
     }
 
-    document.getElementById("balance").innerText = balance;
     isLoaded = true;
   });
 }
@@ -78,7 +76,7 @@ function saveBalance() {
 
 // 🎲 RANDOM
 function rand() {
-  return symbols[Math.floor(Math.random()*symbols.length)];
+  return symbols[Math.floor(Math.random() * symbols.length)];
 }
 
 // 🎨 DISPLAY
@@ -105,7 +103,7 @@ function calculateWin(grid) {
   return total;
 }
 
-// ❌ GENERATE LOSE
+// ❌ LOSE
 function generateLose() {
   let grid;
 
@@ -116,9 +114,9 @@ function generateLose() {
   return grid;
 }
 
-// ✅ GENERATE WIN
+// ✅ WIN
 function generateWin(symbol) {
-  const line = paylines[Math.floor(Math.random()*paylines.length)];
+  const line = paylines[Math.floor(Math.random() * paylines.length)];
   let grid = Array.from({length: 9}, rand);
 
   line.forEach(i => grid[i] = symbol);
@@ -151,7 +149,7 @@ function spin() {
 
   reels.classList.add("spin");
 
-  // 🔊 SPIN SOUND
+  // 🔊 SOUND
   playSound("spinSound");
 
   let interval = setInterval(() => {
@@ -187,7 +185,6 @@ function spin() {
     if (win > 0) {
       winText.innerText = "🎉 PANALO: " + win;
 
-      // 🔊 WIN SOUND
       playSound("winSound");
 
       reels.classList.add("win");
@@ -196,10 +193,10 @@ function spin() {
 
     isSpinning = false;
 
-  }, 1000);
+  }, 1000); // ⏱️ 1 sec
 }
 
-// 🎯 BET SYSTEM
+// 🎯 BET
 function changeBet(x) {
   bet += x;
 
