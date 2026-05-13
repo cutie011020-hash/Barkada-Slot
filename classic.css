@@ -1,102 +1,103 @@
-body {
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   background: radial-gradient(circle, #7a0000, black);
   font-family: Arial;
   color: gold;
-  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   overflow: hidden;
 }
 
 .container {
   width: 100%;
   max-width: 360px;
+  height: 640px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
   padding: 20px;
-  margin-top: 60px;
 }
 
-/* TITLE */
 .title {
-  font-size: 26px;
+  font-size: 22px;
+}
+
+.balance-box {
+  font-size: 16px;
   margin-bottom: 10px;
 }
 
-/* BALANCE */
-.balance-box {
-  font-size: 18px;
-  margin-bottom: 15px;
-}
-
-/* 🎰 SLOT BOX (BIG LIKE REAL) */
 .reels {
-  width: 90vw;
-  max-width: 340px;
-  aspect-ratio: 1/1;
+  width: 260px;
+  height: 260px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 
   background: black;
   border: 6px solid gold;
   border-radius: 20px;
+
+  padding: 15px;
   box-shadow: 0 0 25px gold;
-
-  margin: 20px auto;
-  padding: 10px;
 }
 
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  height: 100%;
-}
-
-.grid div {
+.reels div {
+  font-size: 38px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 48px;
 }
 
-/* BET */
 .bet-box {
-  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
   font-size: 18px;
 }
 
 .bet-box button {
-  font-size: 18px;
-  padding: 8px 14px;
-  margin: 5px;
+  font-size: 20px;
+  padding: 6px 12px;
   border-radius: 10px;
   border: none;
-  background: linear-gradient(orange, gold);
+  background: orange;
   font-weight: bold;
-  box-shadow: 0 0 8px orange;
 }
 
-/* SPIN */
 .spin-btn {
   width: 100%;
-  margin-top: 10px;
-  padding: 15px;
-  font-size: 22px;
+  padding: 14px;
+  font-size: 20px;
+
   background: linear-gradient(red, orange);
   color: white;
+
   border: none;
   border-radius: 15px;
+
   font-weight: bold;
   box-shadow: 0 0 15px red;
 }
 
-/* BACK */
 .back-btn {
   width: 100%;
-  margin-top: 10px;
   padding: 10px;
-  font-size: 16px;
+
+  font-size: 14px;
   background: gray;
   border: none;
   border-radius: 10px;
