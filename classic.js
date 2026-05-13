@@ -2,6 +2,8 @@ let balance = 1000;
 let bet = 1;
 let isSpinning = false;
 
+const userId = "player1"; // 🔥 change later if may login ka
+
 const paylines = [
   [0,1,2],
   [3,4,5],
@@ -22,19 +24,42 @@ const pay = {
 
 const symbols = ["🍒","🍋","🍎","🍉","🍊","🔔","⭐"];
 
-// 🔊 PLAY SOUND
+// 🔊 SOUND
 function playSound(id) {
   const sound = document.getElementById(id);
   if (!sound) return;
-
   sound.currentTime = 0;
   sound.play();
 }
 
+// 🔥 LOAD BALANCE
+function loadBalance() {
+  db.ref("users/" + userId + "/balance").once("value")
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        balance = snapshot.val();
+      } else {
+        balance = 1000;
+        db.ref("users/" + userId).set({ balance: balance });
+      }
+
+      document.getElementById("balance").innerText = balance;
+    });
+}
+
+// 💾 SAVE
+function saveBalance() {
+  db.ref("users/" + userId).update({
+    balance: balance
+  });
+}
+
+// 🎲 RANDOM
 function rand() {
   return symbols[Math.floor(Math.random()*symbols.length)];
 }
 
+// 🎨 DISPLAY
 function display(g) {
   document.getElementById("reels").innerHTML = `
     ${g[0]} ${g[1]} ${g[2]}<br>
@@ -43,6 +68,7 @@ function display(g) {
   `;
 }
 
+// 💰 CALC
 function calculateWin(grid) {
   let total = 0;
   paylines.forEach(line => {
@@ -54,6 +80,7 @@ function calculateWin(grid) {
   return total;
 }
 
+// ❌ LOSE
 function generateLose() {
   let grid;
   do {
@@ -62,6 +89,7 @@ function generateLose() {
   return grid;
 }
 
+// ✅ WIN
 function generateWin(symbol) {
   const line = paylines[Math.floor(Math.random()*paylines.length)];
   let grid = Array.from({length: 9}, rand);
@@ -69,6 +97,7 @@ function generateWin(symbol) {
   return grid;
 }
 
+// 🎰 SPIN
 function spin() {
   if (isSpinning) return;
   if (balance < bet) return alert("No balance");
@@ -79,12 +108,13 @@ function spin() {
   const winText = document.getElementById("winText");
 
   balance -= bet;
+  saveBalance();
+
   document.getElementById("balance").innerText = balance;
   winText.innerText = "";
 
   reels.classList.add("spin");
 
-  // 🔊 SPIN SOUND
   playSound("spinSound");
 
   let interval = setInterval(() => {
@@ -113,12 +143,12 @@ function spin() {
     const win = calculateWin(grid) * bet;
     balance += win;
 
+    saveBalance();
+
     document.getElementById("balance").innerText = balance;
 
     if (win > 0) {
       winText.innerText = "🎉 PANALO: " + win;
-
-      // 🔊 WIN SOUND
       playSound("winSound");
 
       reels.classList.add("win");
@@ -130,6 +160,7 @@ function spin() {
   }, 1000);
 }
 
+// BET
 function changeBet(x) {
   bet += x;
   if (bet < 1) bet = 1;
@@ -137,8 +168,10 @@ function changeBet(x) {
   document.getElementById("bet").innerText = bet;
 }
 
+// BACK
 function back() {
   window.location.href = "index.html";
 }
 
-document.getElementById("balance").innerText = balance;
+// INIT
+loadBalance();
