@@ -1,6 +1,6 @@
 let balance = 1000;
 let bet = 1;
-let isSpinning = false; // 🔒 lock
+let isSpinning = false;
 
 const paylines = [
   [0,1,2],
@@ -71,21 +71,17 @@ function spin() {
 
   balance -= bet;
   document.getElementById("balance").innerText = balance;
-
   winText.innerText = "";
 
   reels.classList.add("spin");
 
-  // 🎰 fake spin (illusion)
   let interval = setInterval(() => {
     let temp = Array.from({length: 9}, rand);
     display(temp);
-  }, 80);
+  }, 60);
 
-  // ⏱️ EXACT 2 seconds
   setTimeout(() => {
     clearInterval(interval);
-    reels.classList.remove("spin");
 
     let grid;
     let roll = Math.random();
@@ -100,6 +96,7 @@ function spin() {
     else grid = generateLose();
 
     display(grid);
+    reels.classList.remove("spin");
 
     const win = calculateWin(grid) * bet;
     balance += win;
@@ -110,12 +107,12 @@ function spin() {
       winText.innerText = "🎉 PANALO: " + win;
 
       reels.classList.add("win");
-      setTimeout(() => reels.classList.remove("win"), 600);
+      setTimeout(() => reels.classList.remove("win"), 500);
     }
 
-    isSpinning = false; // 🔓 unlock
+    isSpinning = false;
 
-  }, 2000);
+  }, 1000); // ⏱️ 1 second
 }
 
 function changeBet(x) {
