@@ -27,7 +27,6 @@ body {
   justify-content: space-between;
 
   padding: 0 15px;
-  box-sizing: border-box;
 }
 
 /* EXIT */
@@ -77,22 +76,20 @@ body {
   font-size: 50px;
   line-height: 1.4;
 
-  transition: all 0.2s ease;
+  overflow: hidden;
 }
 
-/* 🎰 SPIN */
+/* 🎰 SCROLL SPIN */
 .reels.spin {
-  animation: spinAnim 0.5s linear infinite;
-  filter: blur(2px);
+  animation: scrollSpin 0.2s linear infinite;
 }
 
-@keyframes spinAnim {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
+@keyframes scrollSpin {
+  0% { transform: translateY(-10px); }
+  100% { transform: translateY(10px); }
 }
 
-/* 🎉 WIN EFFECT */
+/* 🎉 WIN */
 .reels.win {
   animation: winGlow 0.6s ease;
 }
@@ -110,16 +107,6 @@ body {
   color: #00ff99;
   text-shadow: 0 0 10px #00ff99;
   height: 30px;
-}
-
-/* POP EFFECT */
-.win-text.win {
-  animation: pop 0.4s ease;
-}
-
-@keyframes pop {
-  0% { transform: scale(0.7); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
 }
 
 /* CONTROLS */
@@ -141,7 +128,6 @@ body {
   background: gold;
   border: none;
   border-radius: 10px;
-  font-weight: bold;
 }
 
 /* SPIN BUTTON */
@@ -154,5 +140,4 @@ body {
   border-radius: 15px;
   color: white;
   font-weight: bold;
-  box-shadow: 0 0 20px red;
 }
