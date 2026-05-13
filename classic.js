@@ -22,6 +22,15 @@ const pay = {
 
 const symbols = ["🍒","🍋","🍎","🍉","🍊","🔔","⭐"];
 
+// 🔊 PLAY SOUND
+function playSound(id) {
+  const sound = document.getElementById(id);
+  if (!sound) return;
+
+  sound.currentTime = 0;
+  sound.play();
+}
+
 function rand() {
   return symbols[Math.floor(Math.random()*symbols.length)];
 }
@@ -75,6 +84,9 @@ function spin() {
 
   reels.classList.add("spin");
 
+  // 🔊 SPIN SOUND
+  playSound("spinSound");
+
   let interval = setInterval(() => {
     let temp = Array.from({length: 9}, rand);
     display(temp);
@@ -106,13 +118,16 @@ function spin() {
     if (win > 0) {
       winText.innerText = "🎉 PANALO: " + win;
 
+      // 🔊 WIN SOUND
+      playSound("winSound");
+
       reels.classList.add("win");
       setTimeout(() => reels.classList.remove("win"), 500);
     }
 
     isSpinning = false;
 
-  }, 1000); // ⏱️ 1 second
+  }, 1000);
 }
 
 function changeBet(x) {
