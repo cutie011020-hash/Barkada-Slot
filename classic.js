@@ -13,19 +13,22 @@ const paylines = [
 const pay = {
   "🍒": 0.25,
   "🍋": 3,
+  "🍎": 3,
   "🍉": 6,
+  "🍊": 6,   // ✅ NEW
   "🔔": 12,
   "⭐": 30
 };
 
-const symbols = ["🍒","🍋","🍉","🔔","⭐"];
+// 🎲 SYMBOLS
+const symbols = ["🍒","🍋","🍎","🍉","🍊","🔔","⭐"];
 
 // 🎲 RANDOM SYMBOL
 function rand() {
   return symbols[Math.floor(Math.random()*symbols.length)];
 }
 
-// ❌ GENERATE LOSING GRID (walang kahit anong win)
+// ❌ GENERATE LOSING GRID
 function generateLose() {
   let grid;
 
@@ -36,7 +39,7 @@ function generateLose() {
   return grid;
 }
 
-// ✅ GENERATE WIN GRID (any line + any fruit)
+// ✅ GENERATE WIN GRID
 function generateWin(symbol) {
   const line = paylines[Math.floor(Math.random()*paylines.length)];
 
@@ -71,7 +74,7 @@ function display(g) {
   `;
 }
 
-// 🎰 SPIN (FINAL LOGIC)
+// 🎰 SPIN SYSTEM (UPDATED CHANCES)
 function spin() {
   if (balance < 1) return alert("No balance");
 
@@ -89,14 +92,20 @@ function spin() {
   } else if (roll < 0.06) {
     grid = generateWin("🍉"); // 3%
 
-  } else if (roll < 0.10) {
+  } else if (roll < 0.09) {
+    grid = generateWin("🍊"); // ✅ 3% NEW
+
+  } else if (roll < 0.13) {
     grid = generateWin("🍋"); // 4%
 
-  } else if (roll < 0.15) {
+  } else if (roll < 0.17) {
+    grid = generateWin("🍎"); // 4%
+
+  } else if (roll < 0.22) {
     grid = generateWin("🍒"); // 5%
 
   } else {
-    grid = generateLose(); // 85%
+    grid = generateLose(); // 78%
   }
 
   display(grid);
