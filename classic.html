@@ -13,7 +13,7 @@
   <div class="top-bar">
     <div class="exit-btn" onclick="back()">✖</div>
     <div class="title">🍒 Fortune Fruit</div>
-    <div class="balance">💰 <span id="balance">1000</span></div>
+    <div class="balance">💰 <span id="balance">0</span></div>
   </div>
 
   <!-- SLOT -->
@@ -42,6 +42,15 @@
 <audio id="spinSound" src="sounds/mixkit-fairy-arcade-sparkle-866.wav"></audio>
 <audio id="winSound" src="sounds/mixkit-unlock-game-notification-253.wav"></audio>
 
+<!-- 🔥 FIREBASE SDK (IMPORTANT) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<!-- 🔧 CONFIG -->
+<script src="js/firebase.js"></script>
+
+<!-- 🎮 GAME (LAST) -->
 <script src="classic.js"></script>
+
 </body>
 </html>
