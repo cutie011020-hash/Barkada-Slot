@@ -1,8 +1,7 @@
-// 💰 START
 let balance = 1000;
 let bet = 1;
 
-// 🎯 PAYLINES (horizontal + diagonal only)
+// 🎯 PAYLINES
 const paylines = [
   [0,1,2],
   [3,4,5],
@@ -22,43 +21,35 @@ const pay = {
   "⭐": 30
 };
 
-// 🎲 SYMBOL LIST
 const symbols = ["🍒","🍋","🍎","🍉","🍊","🔔","⭐"];
 
-// 🎲 RANDOM SYMBOL
 function rand() {
-  return symbols[Math.floor(Math.random() * symbols.length)];
+  return symbols[Math.floor(Math.random()*symbols.length)];
 }
 
-// ❌ GENERATE LOSING GRID (no winning lines)
+// ❌ LOSE GRID
 function generateLose() {
   let grid;
-
   do {
-    grid = Array.from({ length: 9 }, rand);
+    grid = Array.from({length: 9}, rand);
   } while (calculateWin(grid) > 0);
-
   return grid;
 }
 
-// ✅ GENERATE WIN GRID (random line + chosen symbol)
+// ✅ WIN GRID
 function generateWin(symbol) {
-  const line = paylines[Math.floor(Math.random() * paylines.length)];
-
-  let grid = Array.from({ length: 9 }, rand);
-
+  const line = paylines[Math.floor(Math.random()*paylines.length)];
+  let grid = Array.from({length: 9}, rand);
   line.forEach(i => grid[i] = symbol);
-
   return grid;
 }
 
-// 💰 CALCULATE WIN (with bet multiplier)
+// 💰 CALCULATE WIN
 function calculateWin(grid) {
   let total = 0;
 
   paylines.forEach(line => {
-    const [a, b, c] = line;
-
+    const [a,b,c] = line;
     if (grid[a] === grid[b] && grid[b] === grid[c]) {
       total += (pay[grid[a]] || 0) * bet;
     }
@@ -70,48 +61,31 @@ function calculateWin(grid) {
 // 🎨 DISPLAY GRID
 function display(g) {
   document.getElementById("reels").innerHTML = `
-    ${g[0]} ${g[1]} ${g[2]}<br>
-    ${g[3]} ${g[4]} ${g[5]}<br>
-    ${g[6]} ${g[7]} ${g[8]}
+    <div class="grid">
+      <div>${g[0]}</div><div>${g[1]}</div><div>${g[2]}</div>
+      <div>${g[3]}</div><div>${g[4]}</div><div>${g[5]}</div>
+      <div>${g[6]}</div><div>${g[7]}</div><div>${g[8]}</div>
+    </div>
   `;
 }
 
-// 🎰 SPIN SYSTEM (HIGH LOSE RATE ~90%)
+// 🎰 SPIN SYSTEM (~90% LOSE)
 function spin() {
-  if (balance < bet) {
-    alert("Not enough balance");
-    return;
-  }
+  if (balance < bet) return alert("Not enough balance");
 
   balance -= bet;
 
   let grid;
   let roll = Math.random();
 
-  if (roll < 0.005) {
-    grid = generateWin("⭐"); // 0.5%
-
-  } else if (roll < 0.015) {
-    grid = generateWin("🔔"); // 1%
-
-  } else if (roll < 0.025) {
-    grid = generateWin("🍉"); // 1%
-
-  } else if (roll < 0.035) {
-    grid = generateWin("🍊"); // 1%
-
-  } else if (roll < 0.055) {
-    grid = generateWin("🍋"); // 2%
-
-  } else if (roll < 0.075) {
-    grid = generateWin("🍎"); // 2%
-
-  } else if (roll < 0.10) {
-    grid = generateWin("🍒"); // 2.5%
-
-  } else {
-    grid = generateLose(); // 🔥 ~90% lose
-  }
+  if (roll < 0.005) grid = generateWin("⭐");
+  else if (roll < 0.015) grid = generateWin("🔔");
+  else if (roll < 0.025) grid = generateWin("🍉");
+  else if (roll < 0.035) grid = generateWin("🍊");
+  else if (roll < 0.055) grid = generateWin("🍋");
+  else if (roll < 0.075) grid = generateWin("🍎");
+  else if (roll < 0.10) grid = generateWin("🍒");
+  else grid = generateLose();
 
   display(grid);
 
@@ -120,31 +94,27 @@ function spin() {
 
   updateUI();
 
-  if (win > 0) {
-    alert("PANALO: " + win);
-  }
+  if (win > 0) alert("PANALO: " + win);
 }
 
-// 🔧 CHANGE BET
-function changeBet(value) {
-  bet += value;
-
+// BET
+function changeBet(val) {
+  bet += val;
   if (bet < 1) bet = 1;
   if (bet > 100) bet = 100;
-
   updateUI();
 }
 
-// 🔄 UPDATE UI
+// UI
 function updateUI() {
   document.getElementById("balance").innerText = balance;
   document.getElementById("bet").innerText = bet;
 }
 
-// 🔙 BACK
+// BACK
 function back() {
   window.location.href = "index.html";
 }
 
-// 🚀 INIT
+// INIT
 updateUI();
