@@ -23,24 +23,30 @@ const pay = {
 
 const symbols = ["🍒","🍋","🍎","🍉","🍊","🔔","⭐"];
 
+// 🎲 RANDOM SYMBOL
 function rand() {
   return symbols[Math.floor(Math.random()*symbols.length)];
 }
 
-// ❌ LOSE GRID
+// ❌ LOSING GRID
 function generateLose() {
   let grid;
+
   do {
     grid = Array.from({length: 9}, rand);
   } while (calculateWin(grid) > 0);
+
   return grid;
 }
 
 // ✅ WIN GRID
 function generateWin(symbol) {
   const line = paylines[Math.floor(Math.random()*paylines.length)];
+
   let grid = Array.from({length: 9}, rand);
+
   line.forEach(i => grid[i] = symbol);
+
   return grid;
 }
 
@@ -50,26 +56,25 @@ function calculateWin(grid) {
 
   paylines.forEach(line => {
     const [a,b,c] = line;
+
     if (grid[a] === grid[b] && grid[b] === grid[c]) {
-      total += (pay[grid[a]] || 0) * bet;
+      total += pay[grid[a]] * bet;
     }
   });
 
   return total;
 }
 
-// 🎨 DISPLAY GRID
+// 🎨 DISPLAY
 function display(g) {
-  document.getElementById("reels").innerHTML = `
-    <div class="grid">
-      <div>${g[0]}</div><div>${g[1]}</div><div>${g[2]}</div>
-      <div>${g[3]}</div><div>${g[4]}</div><div>${g[5]}</div>
-      <div>${g[6]}</div><div>${g[7]}</div><div>${g[8]}</div>
-    </div>
-  `;
+  const reels = document.getElementById("reels").children;
+
+  for (let i = 0; i < 9; i++) {
+    reels[i].innerText = g[i];
+  }
 }
 
-// 🎰 SPIN SYSTEM (~90% LOSE)
+// 🎰 SPIN (HIGH LOSING RATE)
 function spin() {
   if (balance < bet) return alert("Not enough balance");
 
@@ -78,43 +83,58 @@ function spin() {
   let grid;
   let roll = Math.random();
 
-  if (roll < 0.005) grid = generateWin("⭐");
-  else if (roll < 0.015) grid = generateWin("🔔");
-  else if (roll < 0.025) grid = generateWin("🍉");
-  else if (roll < 0.035) grid = generateWin("🍊");
-  else if (roll < 0.055) grid = generateWin("🍋");
-  else if (roll < 0.075) grid = generateWin("🍎");
-  else if (roll < 0.10) grid = generateWin("🍒");
-  else grid = generateLose();
+  if (roll < 0.01) {
+    grid = generateWin("⭐");
+
+  } else if (roll < 0.02) {
+    grid = generateWin("🔔");
+
+  } else if (roll < 0.03) {
+    grid = generateWin("🍉");
+
+  } else if (roll < 0.035) {
+    grid = generateWin("🍊");
+
+  } else if (roll < 0.04) {
+    grid = generateWin("🍋");
+
+  } else if (roll < 0.045) {
+    grid = generateWin("🍎");
+
+  } else if (roll < 0.05) {
+    grid = generateWin("🍒");
+
+  } else {
+    grid = generateLose(); // 🔥 95% LOSE
+  }
 
   display(grid);
 
   const win = calculateWin(grid);
   balance += win;
 
-  updateUI();
-
-  if (win > 0) alert("PANALO: " + win);
-}
-
-// BET
-function changeBet(val) {
-  bet += val;
-  if (bet < 1) bet = 1;
-  if (bet > 100) bet = 100;
-  updateUI();
-}
-
-// UI
-function updateUI() {
   document.getElementById("balance").innerText = balance;
+
+  if (win > 0) {
+    setTimeout(() => alert("PANALO: " + win), 100);
+  }
+}
+
+// ➕➖ BET
+function betPlus() {
+  bet++;
   document.getElementById("bet").innerText = bet;
 }
 
-// BACK
+function betMinus() {
+  if (bet > 1) bet--;
+  document.getElementById("bet").innerText = bet;
+}
+
+// 🔙 BACK
 function back() {
-  window.location.href = "index.html";
+  window.location.href = "home.html";
 }
 
 // INIT
-updateUI();
+document.getElementById("balance").innerText = balance;
