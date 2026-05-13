@@ -139,3 +139,29 @@ body {
   color: white;
   font-weight: bold;
 }
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #111;
+  padding: 20px;
+  border-radius: 15px;
+  border: 3px solid gold;
+  text-align: center;
+  color: white;
+  width: 80%;
+  max-width: 300px;
+  box-shadow: 0 0 20px gold;
+}
