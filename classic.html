@@ -13,7 +13,7 @@
   <div class="top-bar">
     <div class="exit-btn" onclick="back()">✖</div>
     <div class="title">🍒 Fortune Fruit</div>
-    <div class="balance">💰 <span id="balance">0</span></div>
+    <div class="balance">💰 <span id="balance">...</span></div>
   </div>
 
   <!-- SLOT -->
@@ -38,18 +38,34 @@
 
 </div>
 
+<!-- 💸 NO BALANCE MODAL -->
+<div id="noMoneyModal" class="modal">
+  <div class="modal-content">
+    <h2>💸 Not Enough Balance</h2>
+    <p>Kulang ang balance mo.</p>
+    <p>If need mag recharge, I pm lang ako sa Facebook:</p>
+
+    <a href="https://www.facebook.com/jaylordlapena2298" target="_blank">
+      👉 Message on Facebook
+    </a>
+
+    <br><br>
+    <button onclick="closeModal()">OK</button>
+  </div>
+</div>
+
 <!-- 🔊 SOUNDS -->
 <audio id="spinSound" src="sounds/mixkit-fairy-arcade-sparkle-866.wav"></audio>
 <audio id="winSound" src="sounds/mixkit-unlock-game-notification-253.wav"></audio>
 
-<!-- 🔥 FIREBASE SDK (IMPORTANT) -->
+<!-- 🔥 FIREBASE SDK -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <!-- 🔧 CONFIG -->
 <script src="js/firebase.js"></script>
 
-<!-- 🎮 GAME (LAST) -->
+<!-- 🎮 GAME -->
 <script src="classic.js"></script>
 
 </body>
