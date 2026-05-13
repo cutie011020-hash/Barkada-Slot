@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(#0f2027, #203a43, #2c5364);
+  color: white;
+}
+
+/* TOP */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  align-items: center;
+}
+
+.balance {
+  background: black;
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 2px solid gold;
+}
+
+/* BANNER */
+.banner {
+  margin: 10px;
+  padding: 20px;
+  background: linear-gradient(red, orange);
+  border-radius: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* GAMES */
+.games {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 10px;
+}
+
+.game-card {
+  background: #111;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  box-shadow: 0 0 10px gold;
+}
+
+/* NAV */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background: #111;
+  padding: 10px 0;
+}
