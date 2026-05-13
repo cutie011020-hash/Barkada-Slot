@@ -1,80 +1,91 @@
 let balance = 1000;
 
-const symbols = ["🍒","🍋","🍉","🔔","⭐","🪙"];
+// 🎯 PAYLINES (no vertical)
+const paylines = [
+  [0,1,2], // top
+  [3,4,5], // middle
+  [6,7,8], // bottom
+  [0,4,8], // diagonal \
+  [2,4,6]  // diagonal /
+];
+
+// 💰 PAYTABLE
+const pay = {
+  "🍒": 0.25,
+  "🍋": 3,
+  "🍉": 6,
+  "🔔": 12,
+  "⭐": 30
+};
+
+// ❌ LOSING PRESETS
+const losing = [
+["🍒","🍉","🍋","🍉","🍒","🍋","🍋","🍒","🍉"],
+["🍉","🍒","🍋","🍋","🍉","🍒","🍒","🍋","🍉"],
+["🍋","🍒","🍉","🍒","🍋","🍉","🍉","🍋","🍒"],
+["🍒","🍋","🍉","🍉","🍒","🍋","🍋","🍉","🍒"],
+["🍉","🍋","🍒","🍒","🍉","🍋","🍋","🍒","🍉"]
+];
+
+// ✅ WIN PRESETS (iba-ibang fruits + iba-ibang lines)
+const wins = [
+{grid:["🍋","🍋","🍋","🍒","🍉","🍒","🍉","🍒","🍉"]},
+{grid:["🍒","🍉","🍒","🍉","🍉","🍉","🍋","🍒","🍋"]},
+{grid:["🍒","🍋","🍒","🍉","🍒","🍉","⭐","⭐","⭐"]},
+{grid:["🔔","🍒","🍉","🍒","🔔","🍉","🍉","🍒","🔔"]},
+{grid:["🍋","🍒","🍉","🍒","🍋","🍉","🍉","🍒","🍋"]},
+{grid:["🍉","🍒","🍋","🍒","🍉","🍋","🍋","🍒","🍉"]}
+];
 
 function updateUI() {
   document.getElementById("balance").innerText = balance;
 }
 
-function randomSymbol() {
-  return symbols[Math.floor(Math.random() * symbols.length)];
+function display(g) {
+  document.getElementById("reels").innerHTML = `
+    ${g[0]} ${g[1]} ${g[2]}<br>
+    ${g[3]} ${g[4]} ${g[5]}<br>
+    ${g[6]} ${g[7]} ${g[8]}
+  `;
+}
+
+function calculateWin(grid) {
+  let total = 0;
+
+  paylines.forEach(line => {
+    const [a,b,c] = line;
+
+    if (grid[a] === grid[b] && grid[b] === grid[c]) {
+      total += pay[grid[a]] || 0;
+    }
+  });
+
+  return total;
 }
 
 function spin() {
-  if (balance < 10) return alert("No balance");
+  if (balance < 1) return alert("No balance");
 
-  balance -= 10;
+  balance -= 1;
 
-  // 🎲 Controlled RNG (important)
-  const winChance = Math.random();
+  let chosen;
 
-  let grid = [];
-
-  // 👉 30% chance win
-  if (winChance > 0.7) {
-    const sym = randomSymbol();
-    grid = [sym, sym, sym, sym, sym, sym, sym, sym, sym];
+  // 🎯 LOW WIN RATE (20%)
+  if (Math.random() < 0.2) {
+    chosen = wins[Math.floor(Math.random() * wins.length)].grid;
   } else {
-    grid = Array.from({length: 9}, () => randomSymbol());
+    chosen = losing[Math.floor(Math.random() * losing.length)];
   }
 
-  display(grid);
+  display(chosen);
 
-  let win = calculateWin(grid);
+  const win = calculateWin(chosen);
 
   balance += win;
 
   updateUI();
 
-  if (win > 0) {
-    alert("PANALO! +" + win);
-  }
-}
-
-function display(g) {
-  const reels = `
-  ${g[0]} ${g[1]} ${g[2]}<br>
-  ${g[3]} ${g[4]} ${g[5]}<br>
-  ${g[6]} ${g[7]} ${g[8]}
-  `;
-  document.getElementById("reels").innerHTML = reels;
-}
-
-function calculateWin(g) {
-  let win = 0;
-
-  // horizontal
-  if (g[0] === g[1] && g[1] === g[2]) win += 20;
-  if (g[3] === g[4] && g[4] === g[5]) win += 20;
-  if (g[6] === g[7] && g[7] === g[8]) win += 20;
-
-  // diagonal
-  if (g[0] === g[4] && g[4] === g[8]) win += 50;
-  if (g[2] === g[4] && g[4] === g[6]) win += 50;
-
-  // 🪙 jackpot chance
-  const coins = g.filter(x => x === "🪙").length;
-
-  if (coins >= 3) {
-    const jackpot = Math.random();
-
-    if (jackpot > 0.9) return 1000; // GRAND
-    if (jackpot > 0.7) return 100;
-    if (jackpot > 0.5) return 25;
-    return 10;
-  }
-
-  return win;
+  if (win > 0) alert("PANALO: " + win);
 }
 
 function back() {
