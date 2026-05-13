@@ -68,10 +68,20 @@ function spin() {
   balance -= bet;
   document.getElementById("balance").innerText = balance;
 
-  reels.classList.add("spin");
   winText.innerText = "";
 
+  // START SPIN
+  reels.classList.add("spin");
+
+  let interval = setInterval(() => {
+    let temp = Array.from({length: 9}, rand);
+    display(temp);
+  }, 80);
+
+  // ⏱️ 2 SECONDS
   setTimeout(() => {
+    clearInterval(interval);
+    reels.classList.remove("spin");
 
     let grid;
     let roll = Math.random();
@@ -85,8 +95,6 @@ function spin() {
     else if (roll < 0.08) grid = generateWin("🍒");
     else grid = generateLose();
 
-    reels.classList.remove("spin");
-
     display(grid);
 
     const win = calculateWin(grid) * bet;
@@ -97,15 +105,10 @@ function spin() {
       winText.innerText = "🎉 PANALO: " + win;
 
       reels.classList.add("win");
-      winText.classList.add("win");
-
-      setTimeout(() => {
-        reels.classList.remove("win");
-        winText.classList.remove("win");
-      }, 600);
+      setTimeout(() => reels.classList.remove("win"), 600);
     }
 
-  }, 700);
+  }, 2000); // 🔥 2 seconds
 }
 
 function changeBet(x) {
