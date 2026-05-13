@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Slot Game</title>
+  <title>Fortune Fruit</title>
   <link rel="stylesheet" href="classic.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -9,9 +9,18 @@
 
 <div class="game-wrapper">
 
-  <!-- TOP BALANCE -->
+  <!-- TOP BAR -->
   <div class="top-bar">
-    💰 <span id="balance">1000</span>
+
+    <!-- EXIT BUTTON -->
+    <div class="exit-btn" onclick="back()">✖</div>
+
+    <!-- TITLE -->
+    <div class="title">🍒 Fortune Fruit</div>
+
+    <!-- BALANCE -->
+    <div class="balance">💰 <span id="balance">1000</span></div>
+
   </div>
 
   <!-- SLOT AREA -->
@@ -37,7 +46,6 @@
     </div>
 
     <button class="spin-btn" onclick="spin()">SPIN</button>
-    <button class="back-btn" onclick="back()">BACK</button>
 
   </div>
 
