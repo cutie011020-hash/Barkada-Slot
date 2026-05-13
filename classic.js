@@ -44,7 +44,16 @@ function playSound(id) {
   sound.play();
 }
 
-// 🔥 LOAD BALANCE (SAFE - NO RESET)
+// 💸 SHOW NO MONEY MODAL
+function showNoMoney() {
+  document.getElementById("noMoneyModal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("noMoneyModal").style.display = "none";
+}
+
+// 🔥 LOAD BALANCE (SAFE)
 function loadBalance() {
   userRef.once("value").then(snapshot => {
     const data = snapshot.val();
@@ -52,7 +61,6 @@ function loadBalance() {
     if (data && data.balance !== undefined) {
       balance = data.balance;
     } else {
-      // ❗ fallback only (no overwrite)
       balance = 1000;
     }
 
@@ -122,7 +130,12 @@ function generateWin(symbol) {
 function spin() {
   if (!isLoaded) return alert("Loading...");
   if (isSpinning) return;
-  if (balance < bet) return alert("No balance");
+
+  // 💸 CHECK BALANCE
+  if (balance < bet) {
+    showNoMoney();
+    return;
+  }
 
   isSpinning = true;
 
@@ -138,7 +151,7 @@ function spin() {
 
   reels.classList.add("spin");
 
-  // 🔊 SOUND
+  // 🔊 SPIN SOUND
   playSound("spinSound");
 
   let interval = setInterval(() => {
@@ -174,6 +187,7 @@ function spin() {
     if (win > 0) {
       winText.innerText = "🎉 PANALO: " + win;
 
+      // 🔊 WIN SOUND
       playSound("winSound");
 
       reels.classList.add("win");
@@ -182,7 +196,7 @@ function spin() {
 
     isSpinning = false;
 
-  }, 1000); // ⏱️ 1 second spin
+  }, 1000);
 }
 
 // 🎯 BET SYSTEM
