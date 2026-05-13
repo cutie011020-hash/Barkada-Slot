@@ -1,9 +1,18 @@
-let balance = 1000;
+let balance = 0;
 let bet = 1;
 let isSpinning = false;
 
-const userId = "player1"; // 🔥 change later if may login ka
+// 🔥 GET LOGGED USER
+const userId = localStorage.getItem("user");
 
+if (!userId) {
+  window.location.href = "register.html";
+}
+
+// 🔥 FIREBASE REF
+const userRef = db.ref("users/" + userId);
+
+// 🎯 PAYLINES
 const paylines = [
   [0,1,2],
   [3,4,5],
@@ -12,6 +21,7 @@ const paylines = [
   [2,4,6]
 ];
 
+// 💰 PAYTABLE
 const pay = {
   "🍒": 0.25,
   "🍋": 3,
@@ -22,6 +32,7 @@ const pay = {
   "⭐": 30
 };
 
+// 🎲 SYMBOLS
 const symbols = ["🍒","🍋","🍎","🍉","🍊","🔔","⭐"];
 
 // 🔊 SOUND
@@ -32,24 +43,25 @@ function playSound(id) {
   sound.play();
 }
 
-// 🔥 LOAD BALANCE
+// 🔥 LOAD BALANCE (REALTIME)
 function loadBalance() {
-  db.ref("users/" + userId + "/balance").once("value")
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        balance = snapshot.val();
-      } else {
-        balance = 1000;
-        db.ref("users/" + userId).set({ balance: balance });
-      }
+  userRef.on("value", snapshot => {
+    const data = snapshot.val();
 
-      document.getElementById("balance").innerText = balance;
-    });
+    if (data && data.balance !== undefined) {
+      balance = data.balance;
+    } else {
+      balance = 1000;
+      userRef.set({ balance });
+    }
+
+    document.getElementById("balance").innerText = balance;
+  });
 }
 
-// 💾 SAVE
+// 💾 SAVE BALANCE
 function saveBalance() {
-  db.ref("users/" + userId).update({
+  userRef.update({
     balance: balance
   });
 }
@@ -68,32 +80,40 @@ function display(g) {
   `;
 }
 
-// 💰 CALC
+// 💰 CALCULATE WIN
 function calculateWin(grid) {
   let total = 0;
+
   paylines.forEach(line => {
     const [a,b,c] = line;
+
     if (grid[a] === grid[b] && grid[b] === grid[c]) {
       total += pay[grid[a]] || 0;
     }
   });
+
   return total;
 }
 
-// ❌ LOSE
+// ❌ GENERATE LOSE
 function generateLose() {
   let grid;
+
   do {
     grid = Array.from({length: 9}, rand);
   } while (calculateWin(grid) > 0);
+
   return grid;
 }
 
-// ✅ WIN
+// ✅ GENERATE WIN
 function generateWin(symbol) {
   const line = paylines[Math.floor(Math.random()*paylines.length)];
+
   let grid = Array.from({length: 9}, rand);
+
   line.forEach(i => grid[i] = symbol);
+
   return grid;
 }
 
@@ -107,14 +127,15 @@ function spin() {
   const reels = document.getElementById("reels");
   const winText = document.getElementById("winText");
 
+  // bawas bet
   balance -= bet;
   saveBalance();
 
-  document.getElementById("balance").innerText = balance;
   winText.innerText = "";
 
   reels.classList.add("spin");
 
+  // 🔊 SOUND
   playSound("spinSound");
 
   let interval = setInterval(() => {
@@ -140,15 +161,15 @@ function spin() {
     display(grid);
     reels.classList.remove("spin");
 
+    // compute win
     const win = calculateWin(grid) * bet;
+
     balance += win;
-
     saveBalance();
-
-    document.getElementById("balance").innerText = balance;
 
     if (win > 0) {
       winText.innerText = "🎉 PANALO: " + win;
+
       playSound("winSound");
 
       reels.classList.add("win");
@@ -157,20 +178,22 @@ function spin() {
 
     isSpinning = false;
 
-  }, 1000);
+  }, 1000); // 1 second spin
 }
 
-// BET
+// 🎯 BET SYSTEM
 function changeBet(x) {
   bet += x;
+
   if (bet < 1) bet = 1;
   if (bet > 100) bet = 100;
+
   document.getElementById("bet").innerText = bet;
 }
 
-// BACK
+// 🔙 BACK
 function back() {
-  window.location.href = "index.html";
+  window.location.href = "home.html";
 }
 
 // INIT
