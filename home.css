@@ -1,16 +1,33 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: linear-gradient(#0f2027, #203a43, #2c5364);
+  background: radial-gradient(circle, #004d40, #000);
   color: white;
 }
 
-/* TOP */
+/* WRAPPER */
+.home-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* TOP BAR */
 .top-bar {
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(#00695c, #004d40);
   display: flex;
   justify-content: space-between;
-  padding: 15px;
   align-items: center;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .balance {
@@ -18,42 +35,80 @@ body {
   padding: 8px 15px;
   border-radius: 20px;
   border: 2px solid gold;
+  color: gold;
+  font-weight: bold;
+  box-shadow: 0 0 10px gold;
 }
 
 /* BANNER */
 .banner {
-  margin: 10px;
-  padding: 20px;
-  background: linear-gradient(red, orange);
-  border-radius: 15px;
+  margin-top: 20px;
+  background: linear-gradient(to right, gold, orange);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  color: black;
+  box-shadow: 0 0 15px gold;
+}
+
+/* GAME LIST */
+.game-list {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+/* GAME CARD */
+.game-card {
+  width: 160px;
+  height: 160px;
+  background: linear-gradient(#111, #000);
+  border: 3px solid gold;
+  border-radius: 20px;
   text-align: center;
+  padding-top: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 20px gold;
+  transition: 0.2s;
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+}
+
+.game-img {
+  font-size: 50px;
+}
+
+.game-title {
+  margin-top: 10px;
   font-weight: bold;
 }
 
-/* GAMES */
-.games {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding: 10px;
-}
-
-.game-card {
-  background: #111;
-  border-radius: 15px;
-  padding: 20px;
+/* ACTIONS */
+.actions {
+  margin-top: 50px;
   text-align: center;
-  font-size: 18px;
-  box-shadow: 0 0 10px gold;
 }
 
-/* NAV */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  background: #111;
-  padding: 10px 0;
+.play-btn {
+  width: 220px;
+  padding: 15px;
+  font-size: 20px;
+  border: none;
+  border-radius: 15px;
+  background: linear-gradient(red, orange);
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 0 20px red;
+  margin-bottom: 15px;
+}
+
+.logout-btn {
+  width: 150px;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: gray;
+  color: white;
 }
