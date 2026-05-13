@@ -1,56 +1,68 @@
 body {
   margin: 0;
+  height: 100vh; /* full screen */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* center vertically */
   background: radial-gradient(circle, #7a0000, black);
   font-family: Arial;
   color: gold;
   text-align: center;
+  overflow: hidden; /* ❌ no scroll */
 }
 
 .container {
+  width: 100%;
+  max-width: 360px; /* parang mobile app size */
   padding: 20px;
 }
 
+/* TITLE */
 .title {
-  font-size: 28px;
+  font-size: 26px;
   margin-bottom: 10px;
 }
 
+/* BALANCE */
 .balance-box {
   font-size: 18px;
   margin-bottom: 15px;
 }
 
+/* SLOT BOX */
 .reels {
-  font-size: 50px;
+  font-size: 45px;
   background: black;
-  border: 6px solid gold;
+  border: 5px solid gold;
   border-radius: 15px;
-  padding: 20px;
+  padding: 15px;
   display: inline-block;
-  box-shadow: 0 0 25px gold;
+  box-shadow: 0 0 20px gold;
   margin-bottom: 20px;
 }
 
 /* BET */
 .bet-box {
-  margin: 15px;
-  font-size: 20px;
+  margin: 15px 0;
+  font-size: 18px;
 }
 
 .bet-box button {
-  font-size: 20px;
-  padding: 8px 15px;
+  font-size: 18px;
+  padding: 8px 14px;
   margin: 5px;
   border-radius: 10px;
   border: none;
-  background: orange;
+  background: linear-gradient(orange, gold);
   font-weight: bold;
+  box-shadow: 0 0 8px orange;
 }
 
 /* SPIN */
 .spin-btn {
+  width: 100%;
   margin-top: 10px;
-  padding: 15px 40px;
+  padding: 15px;
   font-size: 22px;
   background: linear-gradient(red, orange);
   color: white;
@@ -62,8 +74,9 @@ body {
 
 /* BACK */
 .back-btn {
+  width: 100%;
   margin-top: 10px;
-  padding: 10px 20px;
+  padding: 10px;
   font-size: 16px;
   background: gray;
   border: none;
