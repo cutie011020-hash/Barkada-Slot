@@ -17,7 +17,7 @@ userRef.on("value", (snap) => {
   if (data && data.balance !== undefined) {
     document.getElementById("balance").innerText = data.balance;
   } else {
-    userRef.set({ balance: 1000 });
+    userRef.set({ balance: 0 });
   }
 });
 
