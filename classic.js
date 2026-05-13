@@ -1,12 +1,12 @@
 let balance = 1000;
 
-// 🎯 PAYLINES (no vertical)
+// 🎯 PAYLINES
 const paylines = [
-  [0,1,2], // top
-  [3,4,5], // middle
-  [6,7,8], // bottom
-  [0,4,8], // diagonal \
-  [2,4,6]  // diagonal /
+  [0,1,2],
+  [3,4,5],
+  [6,7,8],
+  [0,4,8],
+  [2,4,6]
 ];
 
 // 💰 PAYTABLE
@@ -18,37 +18,36 @@ const pay = {
   "⭐": 30
 };
 
-// ❌ LOSING PRESETS
-const losing = [
-["🍒","🍉","🍋","🍉","🍒","🍋","🍋","🍒","🍉"],
-["🍉","🍒","🍋","🍋","🍉","🍒","🍒","🍋","🍉"],
-["🍋","🍒","🍉","🍒","🍋","🍉","🍉","🍋","🍒"],
-["🍒","🍋","🍉","🍉","🍒","🍋","🍋","🍉","🍒"],
-["🍉","🍋","🍒","🍒","🍉","🍋","🍋","🍒","🍉"]
-];
+const symbols = ["🍒","🍋","🍉","🔔","⭐"];
 
-// ✅ WIN PRESETS (iba-ibang fruits + iba-ibang lines)
-const wins = [
-{grid:["🍋","🍋","🍋","🍒","🍉","🍒","🍉","🍒","🍉"]},
-{grid:["🍒","🍉","🍒","🍉","🍉","🍉","🍋","🍒","🍋"]},
-{grid:["🍒","🍋","🍒","🍉","🍒","🍉","⭐","⭐","⭐"]},
-{grid:["🔔","🍒","🍉","🍒","🔔","🍉","🍉","🍒","🔔"]},
-{grid:["🍋","🍒","🍉","🍒","🍋","🍉","🍉","🍒","🍋"]},
-{grid:["🍉","🍒","🍋","🍒","🍉","🍋","🍋","🍒","🍉"]}
-];
-
-function updateUI() {
-  document.getElementById("balance").innerText = balance;
+// 🎲 RANDOM SYMBOL
+function rand() {
+  return symbols[Math.floor(Math.random()*symbols.length)];
 }
 
-function display(g) {
-  document.getElementById("reels").innerHTML = `
-    ${g[0]} ${g[1]} ${g[2]}<br>
-    ${g[3]} ${g[4]} ${g[5]}<br>
-    ${g[6]} ${g[7]} ${g[8]}
-  `;
+// ❌ GENERATE LOSING GRID (walang kahit anong win)
+function generateLose() {
+  let grid;
+
+  do {
+    grid = Array.from({length: 9}, rand);
+  } while (calculateWin(grid) > 0);
+
+  return grid;
 }
 
+// ✅ GENERATE WIN GRID (any line + any fruit)
+function generateWin(symbol) {
+  const line = paylines[Math.floor(Math.random()*paylines.length)];
+
+  let grid = Array.from({length: 9}, rand);
+
+  line.forEach(i => grid[i] = symbol);
+
+  return grid;
+}
+
+// 💰 CALCULATE WIN
 function calculateWin(grid) {
   let total = 0;
 
@@ -63,33 +62,58 @@ function calculateWin(grid) {
   return total;
 }
 
+// 🎨 DISPLAY
+function display(g) {
+  document.getElementById("reels").innerHTML = `
+    ${g[0]} ${g[1]} ${g[2]}<br>
+    ${g[3]} ${g[4]} ${g[5]}<br>
+    ${g[6]} ${g[7]} ${g[8]}
+  `;
+}
+
+// 🎰 SPIN (FINAL LOGIC)
 function spin() {
   if (balance < 1) return alert("No balance");
 
   balance -= 1;
 
-  let chosen;
+  let grid;
+  let roll = Math.random();
 
-  // 🎯 LOW WIN RATE (20%)
-  if (Math.random() < 0.2) {
-    chosen = wins[Math.floor(Math.random() * wins.length)].grid;
+  if (roll < 0.01) {
+    grid = generateWin("⭐"); // 1%
+
+  } else if (roll < 0.03) {
+    grid = generateWin("🔔"); // 2%
+
+  } else if (roll < 0.06) {
+    grid = generateWin("🍉"); // 3%
+
+  } else if (roll < 0.10) {
+    grid = generateWin("🍋"); // 4%
+
+  } else if (roll < 0.15) {
+    grid = generateWin("🍒"); // 5%
+
   } else {
-    chosen = losing[Math.floor(Math.random() * losing.length)];
+    grid = generateLose(); // 85%
   }
 
-  display(chosen);
+  display(grid);
 
-  const win = calculateWin(chosen);
-
+  const win = calculateWin(grid);
   balance += win;
 
-  updateUI();
+  document.getElementById("balance").innerText = balance;
 
-  if (win > 0) alert("PANALO: " + win);
+  if (win > 0) {
+    alert("PANALO: " + win);
+  }
 }
+
+// INIT
+document.getElementById("balance").innerText = balance;
 
 function back() {
   window.location.href = "index.html";
 }
-
-updateUI();
