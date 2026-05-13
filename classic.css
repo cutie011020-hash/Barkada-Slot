@@ -79,17 +79,12 @@ body {
   overflow: hidden;
 }
 
-/* 🎰 SCROLL SPIN */
+/* 🎰 SPIN (blur lang para di gumalaw box) */
 .reels.spin {
-  animation: scrollSpin 0.2s linear infinite;
+  filter: blur(3px);
 }
 
-@keyframes scrollSpin {
-  0% { transform: translateY(-10px); }
-  100% { transform: translateY(10px); }
-}
-
-/* 🎉 WIN */
+/* 🎉 WIN EFFECT */
 .reels.win {
   animation: winGlow 0.6s ease;
 }
