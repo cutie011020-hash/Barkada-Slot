@@ -12,7 +12,7 @@ function register() {
     if (!snap.exists()) {
       // new user
       userRef.set({
-        balance: 1000
+        balance: 20
       });
     }
 
