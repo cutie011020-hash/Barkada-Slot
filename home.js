@@ -11,15 +11,17 @@ if (!user || user === "null" || user === "") {
 // 🔥 FIREBASE REF
 const userRef = db.ref("users/" + user);
 
-// 💰 LOAD BALANCE (DISPLAY ONLY - NO RESET)
+// 💰 LOAD BALANCE (SAFE + EXACT DB VALUE)
 function loadBalance() {
-  userRef.on("value", (snap) => {
+  userRef.once("value").then((snap) => {
     const data = snap.val();
+
+    console.log("Firebase data:", data);
 
     if (data && data.balance !== undefined) {
       document.getElementById("balance").innerText = data.balance;
     } else {
-      // ❗ wala talagang laman DB → display 0 lang
+      // ❗ kung walang data → display 0 lang (no overwrite)
       document.getElementById("balance").innerText = "0";
     }
   });
@@ -30,7 +32,7 @@ function openGame() {
   window.location.href = "classic.html";
 }
 
-// 🔒 PREVENT BACK (para di bumalik sa register)
+// 🔒 PREVENT BACK BUTTON (di babalik sa register)
 history.pushState(null, null, location.href);
 window.onpopstate = function () {
   history.go(1);
