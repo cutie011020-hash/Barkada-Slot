@@ -89,16 +89,16 @@ function spin() {
   } else if (roll < 0.03) {
     grid = generateWin("🔔"); // 2%
 
-  } else if (roll < 0.06) {
+  } else if (roll < 0.04) {
     grid = generateWin("🍉"); // 3%
 
-  } else if (roll < 0.09) {
+  } else if (roll < 0.04) {
     grid = generateWin("🍊"); // ✅ 3% NEW
 
-  } else if (roll < 0.13) {
+  } else if (roll < 0.05) {
     grid = generateWin("🍋"); // 4%
 
-  } else if (roll < 0.17) {
+  } else if (roll < 0.05) {
     grid = generateWin("🍎"); // 4%
 
   } else if (roll < 0.22) {
