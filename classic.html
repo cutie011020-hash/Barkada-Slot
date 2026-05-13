@@ -1,58 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  
-  <!-- 🔥 IMPORTANT FOR MOBILE -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Slot Game</title>
-
-  <!-- CSS -->
   <link rel="stylesheet" href="classic.css">
 </head>
 <body>
 
-<div class="container">
+<div class="game-wrapper">
 
-  <!-- TOP INFO -->
-  <div class="top">
-    <h2 class="title">🎰 SLOT GAME</h2>
-    <div class="balance-box">
-      💰 Balance: <span id="balance">1000</span>
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="balance">💰 <span id="balance">1000</span></div>
+  </div>
+
+  <!-- SLOT AREA -->
+  <div class="slot-area">
+
+    <div id="reels" class="reels">
+      ? ? ?<br>
+      ? ? ?<br>
+      ? ? ?
     </div>
+
+    <!-- WIN TEXT -->
+    <div id="winText" class="win-text"></div>
+
   </div>
 
-  <!-- SLOT BOX -->
-  <div class="reels" id="reels">
-    <div>?</div>
-    <div>?</div>
-    <div>?</div>
+  <!-- CONTROLS -->
+  <div class="controls">
 
-    <div>?</div>
-    <div>?</div>
-    <div>?</div>
+    <div class="bet-box">
+      <button onclick="changeBet(-1)">−</button>
+      BET: <span id="bet">1</span>
+      <button onclick="changeBet(1)">+</button>
+    </div>
 
-    <div>?</div>
-    <div>?</div>
-    <div>?</div>
+    <button class="spin-btn" onclick="spin()">SPIN</button>
+    <button class="back-btn" onclick="back()">BACK</button>
+
   </div>
-
-  <!-- BET CONTROL -->
-  <div class="bet-box">
-    <button onclick="betMinus()">-</button>
-    <span>BET: <span id="bet">1</span></span>
-    <button onclick="betPlus()">+</button>
-  </div>
-
-  <!-- BUTTONS -->
-  <button class="spin-btn" onclick="spin()">SPIN</button>
-  <button class="back-btn" onclick="back()">BACK</button>
 
 </div>
 
-<!-- JS -->
 <script src="classic.js"></script>
-
 </body>
 </html>
