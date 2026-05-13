@@ -7,7 +7,7 @@ body {
   color: gold;
 }
 
-/* MAIN LAYOUT */
+/* MAIN */
 .game-wrapper {
   height: 100vh;
   display: flex;
@@ -15,16 +15,43 @@ body {
   align-items: center;
 }
 
-/* TOP BALANCE */
+/* TOP BAR */
 .top-bar {
   position: absolute;
-  top: 20px;
+  top: 0;
+  width: 100%;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+/* EXIT BUTTON */
+.exit-btn {
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+}
+
+/* TITLE */
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 0 0 10px gold;
+}
+
+/* BALANCE */
+.balance {
   background: black;
-  padding: 10px 25px;
-  border-radius: 25px;
+  padding: 6px 15px;
+  border-radius: 20px;
   border: 2px solid gold;
+  font-size: 14px;
   box-shadow: 0 0 10px gold;
-  font-size: 18px;
 }
 
 /* SLOT AREA */
@@ -63,7 +90,7 @@ body {
 /* CONTROLS */
 .controls {
   position: absolute;
-  bottom: 30px;
+  bottom: 40px;
   text-align: center;
 }
 
@@ -93,14 +120,4 @@ body {
   color: white;
   font-weight: bold;
   box-shadow: 0 0 20px red;
-}
-
-/* BACK */
-.back-btn {
-  margin-top: 10px;
-  width: 200px;
-  padding: 10px;
-  background: gray;
-  border: none;
-  border-radius: 10px;
 }
