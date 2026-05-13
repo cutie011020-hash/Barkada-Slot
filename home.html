@@ -1,54 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Home</title>
-  <link rel="stylesheet" href="home.css">
+  <title>Register</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: Arial;
+      background: radial-gradient(circle, #8b0000, black);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: gold;
+    }
+
+    .box {
+      background: black;
+      padding: 30px;
+      border-radius: 20px;
+      border: 3px solid gold;
+      box-shadow: 0 0 20px gold;
+      width: 90%;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 15px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(red, orange);
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 10px red;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+  </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="top-bar">
-  <div class="profile">👤</div>
-  <div class="balance">💰 <span id="balance">0</span></div>
-  <div class="menu">⚙️</div>
-</div>
+<div class="box">
+  <h2>📱 Register</h2>
 
-<!-- BANNER -->
-<div class="banner">
-  🎰 DAILY BONUS 🎰
-</div>
+  <input type="text" id="number" placeholder="Enter phone number">
 
-<!-- GAME GRID -->
-<div class="games">
-  <div class="game-card" onclick="openGame()">
-    🎰<br>Fortune Fruit
-  </div>
-
-  <div class="game-card">
-    💣<br>Mines
-  </div>
-
-  <div class="game-card">
-    🎡<br>Lucky Wheel
-  </div>
-</div>
-
-<!-- NAV -->
-<div class="bottom-nav">
-  <div>🏦 Bank</div>
-  <div>🎮 Game</div>
-  <div>🎡 Wheel</div>
-  <div>🎁 Events</div>
+  <button onclick="register()">Login / Register</button>
 </div>
 
 <!-- 🔥 FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<!-- CONFIG -->
 <script src="js/firebase.js"></script>
 
-<!-- 🎮 HOME JS -->
-<script src="home.js"></script>
+<!-- AUTH -->
+<script src="auth.js"></script>
 
 </body>
 </html>
