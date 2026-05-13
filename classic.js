@@ -2,7 +2,7 @@ let balance = 0;
 let bet = 1;
 let isSpinning = false;
 
-// 🔥 GET LOGGED USER
+// 🔥 GET USER
 const userId = localStorage.getItem("user");
 
 if (!userId) {
@@ -43,9 +43,9 @@ function playSound(id) {
   sound.play();
 }
 
-// 🔥 LOAD BALANCE (REALTIME)
+// 🔥 LOAD BALANCE (ONCE ONLY - FIXED)
 function loadBalance() {
-  userRef.on("value", snapshot => {
+  userRef.once("value").then(snapshot => {
     const data = snapshot.val();
 
     if (data && data.balance !== undefined) {
@@ -109,7 +109,6 @@ function generateLose() {
 // ✅ GENERATE WIN
 function generateWin(symbol) {
   const line = paylines[Math.floor(Math.random()*paylines.length)];
-
   let grid = Array.from({length: 9}, rand);
 
   line.forEach(i => grid[i] = symbol);
@@ -127,8 +126,9 @@ function spin() {
   const reels = document.getElementById("reels");
   const winText = document.getElementById("winText");
 
-  // bawas bet
+  // 💸 deduct bet (instant UI update)
   balance -= bet;
+  document.getElementById("balance").innerText = balance;
   saveBalance();
 
   winText.innerText = "";
@@ -161,10 +161,11 @@ function spin() {
     display(grid);
     reels.classList.remove("spin");
 
-    // compute win
+    // 💰 compute win
     const win = calculateWin(grid) * bet;
 
     balance += win;
+    document.getElementById("balance").innerText = balance;
     saveBalance();
 
     if (win > 0) {
@@ -178,7 +179,7 @@ function spin() {
 
     isSpinning = false;
 
-  }, 1000); // 1 second spin
+  }, 1000); // ⏱️ 1 second spin
 }
 
 // 🎯 BET SYSTEM
