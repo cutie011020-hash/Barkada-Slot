@@ -7,22 +7,18 @@ body {
   color: gold;
 }
 
-/* CENTER WHOLE GAME */
+/* MAIN LAYOUT */
 .game-wrapper {
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
 }
 
-/* TOP BAR */
+/* TOP BALANCE */
 .top-bar {
-  display: flex;
-  justify-content: center;
-  padding: 15px;
-}
-
-.balance {
+  position: absolute;
+  top: 20px;
   background: black;
   padding: 10px 25px;
   border-radius: 25px;
@@ -33,15 +29,14 @@ body {
 
 /* SLOT AREA */
 .slot-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-top: 100px;
+  text-align: center;
 }
 
 /* SLOT BOX */
 .reels {
-  width: 280px;
-  height: 280px;
+  width: 260px;
+  height: 260px;
   background: black;
   border: 6px solid gold;
   border-radius: 20px;
@@ -52,11 +47,11 @@ body {
   justify-content: center;
   align-items: center;
 
-  font-size: 55px;
+  font-size: 50px;
   line-height: 1.4;
 }
 
-/* WIN TEXT (IMPORTANT) */
+/* WIN TEXT */
 .win-text {
   margin-top: 15px;
   font-size: 22px;
@@ -67,8 +62,9 @@ body {
 
 /* CONTROLS */
 .controls {
+  position: absolute;
+  bottom: 30px;
   text-align: center;
-  margin-bottom: 25px;
 }
 
 /* BET */
@@ -86,7 +82,7 @@ body {
   font-weight: bold;
 }
 
-/* SPIN BUTTON */
+/* SPIN */
 .spin-btn {
   width: 200px;
   padding: 15px;
@@ -99,7 +95,7 @@ body {
   box-shadow: 0 0 20px red;
 }
 
-/* BACK BUTTON */
+/* BACK */
 .back-btn {
   margin-top: 10px;
   width: 200px;
