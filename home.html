@@ -1,82 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Register</title>
+  <title>Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FIREBASE -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+  <script src="js/firebase.js"></script>
 
   <style>
     body {
       margin: 0;
-      height: 100vh;
+      background: radial-gradient(circle, #004d40, black);
       font-family: Arial;
-      background: radial-gradient(circle, #8b0000, black);
+      color: white;
+      text-align: center;
+    }
+
+    .top {
+      padding: 20px;
+      background: #00332a;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
+    }
+
+    .balance {
+      background: black;
+      padding: 5px 15px;
+      border-radius: 20px;
+      border: 2px solid gold;
       color: gold;
     }
 
-    .box {
-      background: black;
-      padding: 30px;
-      border-radius: 20px;
-      border: 3px solid gold;
-      box-shadow: 0 0 20px gold;
-      width: 90%;
-      max-width: 300px;
-      text-align: center;
+    .games {
+      margin-top: 30px;
     }
 
-    h2 {
-      margin-bottom: 20px;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      margin-bottom: 15px;
-      font-size: 16px;
-      text-align: center;
+    .card {
+      width: 120px;
+      height: 120px;
+      background: orange;
+      margin: 10px auto;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     button {
-      width: 100%;
-      padding: 12px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(red, orange);
-      color: white;
-      font-weight: bold;
-      box-shadow: 0 0 10px red;
-    }
-
-    button:active {
-      transform: scale(0.95);
+      margin-top: 20px;
+      padding: 10px;
     }
   </style>
 </head>
 <body>
 
-<div class="box">
-  <h2>📱 Register</h2>
-
-  <input type="text" id="number" placeholder="Enter phone number">
-
-  <button onclick="register()">Login / Register</button>
+<div class="top">
+  <div onclick="logout()">❌</div>
+  <div>🎰 HOME</div>
+  <div class="balance">💰 <span id="balance">0</span></div>
 </div>
 
-<!-- 🔥 FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<div class="games">
+  <div class="card" onclick="openGame()">PLAY SLOT</div>
+</div>
 
-<!-- CONFIG -->
-<script src="js/firebase.js"></script>
+<button onclick="logout()">Logout</button>
 
-<!-- AUTH -->
-<script src="auth.js"></script>
+<script src="home.js"></script>
 
 </body>
 </html>
