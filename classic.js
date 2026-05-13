@@ -1,6 +1,7 @@
 let balance = 0;
 let bet = 1;
 let isSpinning = false;
+let isLoaded = false;
 
 // 🔥 GET USER
 const userId = localStorage.getItem("user");
@@ -43,7 +44,7 @@ function playSound(id) {
   sound.play();
 }
 
-// 🔥 LOAD BALANCE (ONCE ONLY - FIXED)
+// 🔥 LOAD BALANCE (SAFE - NO RESET)
 function loadBalance() {
   userRef.once("value").then(snapshot => {
     const data = snapshot.val();
@@ -51,11 +52,12 @@ function loadBalance() {
     if (data && data.balance !== undefined) {
       balance = data.balance;
     } else {
+      // ❗ fallback only (no overwrite)
       balance = 1000;
-      userRef.set({ balance });
     }
 
     document.getElementById("balance").innerText = balance;
+    isLoaded = true;
   });
 }
 
@@ -118,6 +120,7 @@ function generateWin(symbol) {
 
 // 🎰 SPIN
 function spin() {
+  if (!isLoaded) return alert("Loading...");
   if (isSpinning) return;
   if (balance < bet) return alert("No balance");
 
@@ -126,7 +129,7 @@ function spin() {
   const reels = document.getElementById("reels");
   const winText = document.getElementById("winText");
 
-  // 💸 deduct bet (instant UI update)
+  // 💸 deduct bet
   balance -= bet;
   document.getElementById("balance").innerText = balance;
   saveBalance();
