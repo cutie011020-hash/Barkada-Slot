@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Slot</title>
+  <title>Slot Game</title>
   <link rel="stylesheet" href="classic.css">
 </head>
 <body>
 
-<h1>💰 SLOT DEMO</h1>
+<div class="container">
 
-<div>Balance: <span id="balance">1000</span></div>
+  <h1 class="title">🎰 SLOT GAME</h1>
 
-<div id="reels" class="reels">
-❓ ❓ ❓<br>
-❓ ❓ ❓<br>
-❓ ❓ ❓
+  <div class="balance-box">
+    💰 Balance: <span id="balance">1000</span>
+  </div>
+
+  <div id="reels" class="reels">
+    ❓ ❓ ❓<br>
+    ❓ ❓ ❓<br>
+    ❓ ❓ ❓
+  </div>
+
+  <!-- BET CONTROLS -->
+  <div class="bet-box">
+    <button onclick="changeBet(-1)">➖</button>
+    <span>BET: <span id="bet">1</span></span>
+    <button onclick="changeBet(1)">➕</button>
+  </div>
+
+  <!-- SPIN BUTTON -->
+  <button class="spin-btn" onclick="spin()">SPIN</button>
+
+  <button class="back-btn" onclick="back()">BACK</button>
+
 </div>
 
-<button onclick="spin()">🎰 SPIN (1)</button>
-<button onclick="back()">BACK</button>
-
 <script src="classic.js"></script>
-
 </body>
 </html>
