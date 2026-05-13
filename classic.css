@@ -1,20 +1,21 @@
 body {
   margin: 0;
-  height: 100vh; /* full screen */
+  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center; /* center vertically */
+  align-items: flex-start;
   background: radial-gradient(circle, #7a0000, black);
   font-family: Arial;
   color: gold;
   text-align: center;
-  overflow: hidden; /* ❌ no scroll */
+  overflow: hidden;
 }
 
 .container {
   width: 100%;
-  max-width: 360px; /* parang mobile app size */
+  max-width: 360px;
   padding: 20px;
+  margin-top: 60px;
 }
 
 /* TITLE */
@@ -29,16 +30,34 @@ body {
   margin-bottom: 15px;
 }
 
-/* SLOT BOX */
+/* 🎰 SLOT BOX (BIG LIKE REAL) */
 .reels {
-  font-size: 45px;
+  width: 90vw;
+  max-width: 340px;
+  aspect-ratio: 1/1;
+
   background: black;
-  border: 5px solid gold;
-  border-radius: 15px;
-  padding: 15px;
-  display: inline-block;
-  box-shadow: 0 0 20px gold;
-  margin-bottom: 20px;
+  border: 6px solid gold;
+  border-radius: 20px;
+  box-shadow: 0 0 25px gold;
+
+  margin: 20px auto;
+  padding: 10px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  height: 100%;
+}
+
+.grid div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
 }
 
 /* BET */
