@@ -1,5 +1,6 @@
 let balance = 1000;
 let bet = 1;
+let isSpinning = false; // 🔒 lock
 
 const paylines = [
   [0,1,2],
@@ -60,7 +61,10 @@ function generateWin(symbol) {
 }
 
 function spin() {
+  if (isSpinning) return;
   if (balance < bet) return alert("No balance");
+
+  isSpinning = true;
 
   const reels = document.getElementById("reels");
   const winText = document.getElementById("winText");
@@ -70,15 +74,15 @@ function spin() {
 
   winText.innerText = "";
 
-  // START SPIN
   reels.classList.add("spin");
 
+  // 🎰 fake spin (illusion)
   let interval = setInterval(() => {
     let temp = Array.from({length: 9}, rand);
     display(temp);
   }, 80);
 
-  // ⏱️ 2 SECONDS
+  // ⏱️ EXACT 2 seconds
   setTimeout(() => {
     clearInterval(interval);
     reels.classList.remove("spin");
@@ -99,6 +103,7 @@ function spin() {
 
     const win = calculateWin(grid) * bet;
     balance += win;
+
     document.getElementById("balance").innerText = balance;
 
     if (win > 0) {
@@ -108,7 +113,9 @@ function spin() {
       setTimeout(() => reels.classList.remove("win"), 600);
     }
 
-  }, 2000); // 🔥 2 seconds
+    isSpinning = false; // 🔓 unlock
+
+  }, 2000);
 }
 
 function changeBet(x) {
